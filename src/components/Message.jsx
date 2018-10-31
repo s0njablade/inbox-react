@@ -3,9 +3,11 @@ import '../App.css';
 
 const Message = (props) => {
 
+    console.log('props', props)
+
     return (
         <div className="Message">
-            <div className="row message unread">
+            <div className={ true ? "row message unread" : "row message read"}>
                 <div className="col-xs-1">
                     <div className="row">
                         <div className="col-xs-2">
@@ -18,7 +20,7 @@ const Message = (props) => {
                 </div>
                 <div className="col-xs-11">
                     <a href="#">
-                        Here is some message text that has a bunch of stuff
+                        {props.email.subject}
                     </a>
                 </div>
             </div>

@@ -10,7 +10,7 @@ const Toolbar = (props) => {
                     <p className="pull-right">
                         <span className="badge badge">2</span>
                         unread messages
-            </p>
+                     </p>
 
                     <button className="btn btn-default">
                         <i className={true ? "fa fa-check-square-o" : "fa fa-minus-square-o"}></i>
