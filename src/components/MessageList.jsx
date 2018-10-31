@@ -5,9 +5,9 @@ import Message from './Message'
 const MessageList = (props) => {
 
     return (
-        <div classNameName="MessageList">
-           <Message />
-        </div>
+        props.messages.map(message => {
+            return <Message />
+        })
     )
 }
 
