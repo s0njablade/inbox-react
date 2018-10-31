@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import '../App.css';
+import Message from './Message'
 
+const MessageList = (props) => {
 
-class MessageList extends Component {
-  render() {
     return (
-      <div className="MessageList">
-        
-      </div>
-    );
-  }
+        <div classNameName="MessageList">
+           <Message />
+        </div>
+    )
 }
 
 export default MessageList;

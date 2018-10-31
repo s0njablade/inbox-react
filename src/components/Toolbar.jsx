@@ -42,7 +42,7 @@ const Toolbar = (props) => {
               <i className="fa fa-trash-o"></i>
             </button>
           </div>
-          </div>Í
+          </div>
       </div>
     )
 }
