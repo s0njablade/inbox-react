@@ -3,13 +3,14 @@ import './App.css';
 import Toolbar from './components/Toolbar'
 import MessageList from './components/MessageList'
 
+
 class App extends Component {
 
 constructor(props){
   super(props)
   this.state={
     messages: [],
-    // subject: ''
+    
   }
 }
 
@@ -24,14 +25,27 @@ async componentDidMount(){
   })
 }
 
+messageRead = (id) => {
+  console.log('messageRead', id)
+  const updatedMessages = this.state.messages.map(message =>{
+    if(message.id === id){
+      message.read = !message.read
+    }
+    return message
+  })
+
+  this.setState({
+    messages: updatedMessages
+  })
+}
+
   render() {
 
-  // const subjects = (this.state.messages.map(subject => <MessageList messages={this.state.messages} subjects={subject.subject}/>))
 
     return (
       <div className="App">
         <Toolbar />
-        <MessageList messages={this.state.messages}/>
+        <MessageList messages={this.state.messages} messageRead={this.messageRead}/>
       </div>
     );
   }

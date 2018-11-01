@@ -6,7 +6,7 @@ const MessageList = (props) => {
 console.log(props)
     return (
         props.messages.map(message => {
-            return <Message email={message}/>
+            return <Message email={message} messageRead={props.messageRead}/>
         })
     )
 }

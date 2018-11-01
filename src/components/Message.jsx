@@ -7,11 +7,11 @@ const Message = (props) => {
 
     return (
         <div className="Message">
-            <div className={ true ? "row message unread" : "row message read"}>
+            <div className= {props.email.read ? "row message read" : "row message unread" } onClick={() => props.messageRead(props.email.id)}>
                 <div className="col-xs-1">
                     <div className="row">
                         <div className="col-xs-2">
-                            <input type="checkbox" />
+                            <input type="checkbox"/>
                         </div>
                         <div className="col-xs-2">
                             <i className="star fa fa-star-o"></i>
