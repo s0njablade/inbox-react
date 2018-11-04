@@ -7,7 +7,7 @@ const Message = (props) => {
 
     return (
         <div className="Message">
-            <div className= {props.email.read ? "row message read" : "row message unread" } onClick={() => props.messageRead(props.email.id)}>
+            <div className= {props.email.read ? "row message read" : "row message unread" } >
                 <div className="col-xs-1">
                     <div className="row">
                         <div className="col-xs-2">
@@ -18,7 +18,7 @@ const Message = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-xs-11">
+                <div className="col-xs-11" onClick={() => props.messageRead(props.email.id)}>
                     <a href="#">
                         {props.email.subject}
                     </a>

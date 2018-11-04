@@ -27,6 +27,9 @@ async componentDidMount(){
 
 markAsReadButtonClicked = () => {
   // console.log('markAsReadButtonClicked')
+  const selectedMessages = this.state.messages.filter(message => message.selected === true)
+  console.log('selectecMessages', selectedMessages)
+  selectedMessages.forEach(message => this.messageRead(message.id))
 }
 
 messageSelected = (id) => {
@@ -62,7 +65,7 @@ messageRead = async (id) => {
   })
   const updatedMessages = this.state.messages.map(message =>{
     if(message.id === id){
-      message.read = !message.read
+      message.read = true
     }
     return message
   })
