@@ -21,11 +21,31 @@ async componentDidMount(){
   let unRead = json.filter(message => !message.read)
 
   this.setState({
-    messages:json,
+    messages:json
+  })
+}
+
+markAsReadButtonClicked = () => {
+  // console.log('markAsReadButtonClicked')
+}
+
+messageSelected = (id) => {
+  console.log('messageSelected', id)
+
+  const updatedMessages = this.state.messages.map(message =>{
+    if(message.id === id){
+      message.selected = !message.selected
+    }
+    return message
+  })
+
+  this.setState({
+    messages: updatedMessages
   })
 }
 
 messageRead = async (id) => {
+  console.log('messageRead', id)
   let message = {
     messageIds: [id],
     command: "read",
@@ -57,8 +77,8 @@ messageRead = async (id) => {
 
     return (
       <div className="App">
-        <Toolbar />
-        <MessageList messages={this.state.messages} messageRead={this.messageRead}/>
+        <Toolbar markAsReadButtonClicked={this.markAsReadButtonClicked}/>
+        <MessageList messages={this.state.messages} messageRead={this.messageRead} messageSelected={this.messageSelected}/>
       </div>
     );
   }

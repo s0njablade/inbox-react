@@ -11,7 +11,7 @@ const Message = (props) => {
                 <div className="col-xs-1">
                     <div className="row">
                         <div className="col-xs-2">
-                            <input type="checkbox"/>
+                            <input type="checkbox" onClick={() => props.messageSelected(props.email.id)} checked={(typeof props.email.selected !== "undefined") && props.email.selected === true ? "checked" : ""}/>
                         </div>
                         <div className="col-xs-2">
                             <i className="star fa fa-star-o"></i>
