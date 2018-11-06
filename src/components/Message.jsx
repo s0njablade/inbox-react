@@ -18,7 +18,7 @@ const Message = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-xs-11" onClick={() => props.messageRead(props.email.id)}>
+                <div className="col-xs-11" onClick={() => props.updateReadStatus(props.email.id)}>
                     <a href="#">
                         {props.email.subject}
                     </a>

@@ -25,12 +25,17 @@ async componentDidMount(){
   })
 }
 
-markAsReadButtonClicked = () => {
-  // console.log('markAsReadButtonClicked')
+
+
+readToggle = (e) => {
+  // console.log('readToggle')
   const selectedMessages = this.state.messages.filter(message => message.selected === true)
   console.log('selectecMessages', selectedMessages)
-  selectedMessages.forEach(message => this.messageRead(message.id))
+  const readOrUnread = e.target.id === 'read' ? true : false
+  selectedMessages.forEach(message => this.updateReadStatus(message.id, readOrUnread))
+  
 }
+
 
 messageSelected = (id) => {
   console.log('messageSelected', id)
@@ -47,12 +52,13 @@ messageSelected = (id) => {
   })
 }
 
-messageRead = async (id) => {
-  console.log('messageRead', id)
+updateReadStatus = async (id, readOrUnread) => {
+  console.log('updateReadStatus', id, readOrUnread)
   let message = {
     messageIds: [id],
     command: "read",
-    "read": true
+    "read": readOrUnread
+
   }
 
   const result = await fetch('http://localhost:8082/api/messages', {
@@ -65,7 +71,7 @@ messageRead = async (id) => {
   })
   const updatedMessages = this.state.messages.map(message =>{
     if(message.id === id){
-      message.read = true
+      message.read = readOrUnread
     }
     return message
   })
@@ -80,8 +86,8 @@ messageRead = async (id) => {
 
     return (
       <div className="App">
-        <Toolbar markAsReadButtonClicked={this.markAsReadButtonClicked}/>
-        <MessageList messages={this.state.messages} messageRead={this.messageRead} messageSelected={this.messageSelected}/>
+        <Toolbar readToggle={this.readToggle}/>
+        <MessageList messages={this.state.messages} updateReadStatus={this.updateReadStatus} messageSelected={this.messageSelected}/>
       </div>
     );
   }
