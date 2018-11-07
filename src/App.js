@@ -37,18 +37,16 @@ readToggle = (e) => {
 }
 
 
-messageSelected = (id) => {
-  console.log('messageSelected', id)
+messageSelected = (e) => {
+  
+  const id = e.target.id
+  const allMessages = this.state.messages
+  const updatedMessage = allMessages[id -1]
+  updatedMessage.selected = !updatedMessage.selected
 
-  const updatedMessages = this.state.messages.map(message =>{
-    if(message.id === id){
-      message.selected = !message.selected
-    }
-    return message
-  })
 
   this.setState({
-    messages: updatedMessages
+    messages: allMessages
   })
 }
 
@@ -81,15 +79,42 @@ updateReadStatus = async (id, readOrUnread) => {
   })
 }
 
+starOrNoStar = async (e) =>{
+const id = e.target.id
+let message = {
+  messageIds: [id],
+  command: "star"
+}
+
+const allMessages = this.state.messages
+
+const result = await fetch('http://localhost:8082/api/messages', {
+  method: 'PATCH',
+  body: JSON.stringify(message),
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
+})
+
+
+const updatedMessage = allMessages[id -1]
+updatedMessage.starred = !updatedMessage.starred
+
+this.setState({
+  messages: allMessages
+})
+}
+
   render() {
 
 
     return (
       <div className="App">
         <Toolbar readToggle={this.readToggle}/>
-        <MessageList messages={this.state.messages} updateReadStatus={this.updateReadStatus} messageSelected={this.messageSelected}/>
+        <MessageList starOrNoStar={this.starOrNoStar}messages={this.state.messages} updateReadStatus={this.updateReadStatus} messageSelected={this.messageSelected}/>
       </div>
-    );
+    )
   }
 }
 

@@ -11,10 +11,10 @@ const Message = (props) => {
                 <div className="col-xs-1">
                     <div className="row">
                         <div className="col-xs-2">
-                            <input type="checkbox" onClick={() => props.messageSelected(props.email.id)} checked={(typeof props.email.selected !== "undefined") && props.email.selected === true ? "checked" : ""}/>
+                            <input type="checkbox" id={props.email.id} onClick={props.messageSelected} checked={(typeof props.email.selected !== "undefined") && props.email.selected === true ? "checked" : ""}/>
                         </div>
                         <div className="col-xs-2">
-                            <i className="star fa fa-star-o"></i>
+                            <i id={props.email.id} onClick={props.starOrNoStar} className={props.email.starred ? "star fa fa-star" : "star fa fa-star-o" }></i>
                         </div>
                     </div>
                 </div>
