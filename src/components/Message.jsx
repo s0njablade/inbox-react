@@ -7,7 +7,7 @@ const Message = (props) => {
 
     return (
         <div className="Message">
-            <div className= {props.email.read ? "row message read" : "row message unread" } >
+            <div className= {(props.email.read ? "row message read" : "row message unread") + (props.email.selected ? " selected" : '')}>
                 <div className="col-xs-1">
                     <div className="row">
                         <div className="col-xs-2">

@@ -10,7 +10,7 @@ constructor(props){
   super(props)
   this.state={
     messages: [],
-    
+    iconStatus: 'fa fa-minus-square-o'
   }
 }
 
@@ -25,8 +25,6 @@ async componentDidMount(){
   })
 }
 
-
-
 readToggle = (e) => {
   // console.log('readToggle')
   const selectedMessages = this.state.messages.filter(message => message.selected === true)
@@ -36,6 +34,33 @@ readToggle = (e) => {
   
 }
 
+bulkSelect = () => {
+  let allMessages = this.state.messages 
+  let totalNumber= allMessages.reduce((tally, current)=>{
+    return tally += current.selected ? 1 : 0
+  },0)
+
+allMessages = allMessages.map(message => {
+  return {
+    ...message, 
+    selected: totalNumber > 0 ? allMessages.length === totalNumber ? false : true : true
+  }
+})
+
+this.setState ({
+  messages: allMessages
+})
+
+totalNumber= allMessages.reduce((tally, current)=>{
+  return tally += current.selected ? 1 : 0
+},0)
+
+const iconStatus = totalNumber > 0 ? allMessages.length === totalNumber ? "fa fa-check-square-o" : "fa fa-minus-square-o" : "fa fa-square-o"
+
+this.setState({
+  iconStatus: iconStatus
+})
+}
 
 messageSelected = (e) => {
   
@@ -43,10 +68,19 @@ messageSelected = (e) => {
   const allMessages = this.state.messages
   const updatedMessage = allMessages[id -1]
   updatedMessage.selected = !updatedMessage.selected
-
-
+  
   this.setState({
     messages: allMessages
+  })
+
+ let totalNumber= allMessages.reduce((tally, current)=>{
+    return tally += current.selected ? 1 : 0
+  },0)
+  
+  const iconStatus = totalNumber > 0 ? allMessages.length === totalNumber ? "fa fa-check-square-o" : "fa fa-minus-square-o" : "fa fa-square-o"
+  
+  this.setState({
+    iconStatus: iconStatus
   })
 }
 
@@ -97,7 +131,6 @@ const result = await fetch('http://localhost:8082/api/messages', {
   }
 })
 
-
 const updatedMessage = allMessages[id -1]
 updatedMessage.starred = !updatedMessage.starred
 
@@ -111,7 +144,7 @@ this.setState({
 
     return (
       <div className="App">
-        <Toolbar readToggle={this.readToggle}/>
+        <Toolbar iconStatus={this.state.iconStatus} bulkSelect={this.bulkSelect} readToggle={this.readToggle}/>
         <MessageList starOrNoStar={this.starOrNoStar}messages={this.state.messages} updateReadStatus={this.updateReadStatus} messageSelected={this.messageSelected}/>
       </div>
     )

@@ -12,8 +12,8 @@ const Toolbar = (props) => {
                         unread messages
                      </p>
 
-                    <button className="btn btn-default">
-                        <i className={true ? "fa fa-check-square-o" : "fa fa-minus-square-o"}></i>
+                    <button className="btn btn-default" onClick={props.bulkSelect}>
+                        <i className={props.iconStatus}></i>
                     </button>
 
                     <button id='read' onClick={props.readToggle} className="btn btn-default">
